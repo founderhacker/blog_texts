@@ -13,3 +13,32 @@
  *= require_tree .
  *= require_self
  */
+
+.circle {
+   height: 50px;
+   width: 50px;
+   background-color: #fff;
+   border: 2px solid black;
+   border-radius: 50%;
+   display: inline-block;
+ }
+
+ .square {
+   height: 50px;
+   width: 50px;
+   background-color: #fff;
+   border: 2px solid black;
+   display: inline-block;
+ }
+
+ .rectangle {
+   height: 50px;
+   width: 100px;
+   background-color: #fff;
+   border: 2px solid black;
+   display: inline-block;
+ }
+
+ .shape-selected {
+   background-color: blue;
+ }
