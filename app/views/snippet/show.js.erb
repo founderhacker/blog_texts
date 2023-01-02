@@ -1,0 +1,36 @@
+var BlogTextsWidget = {
+  circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '10px', right: '10px', cursor: 'pointer' },
+  position: 'bottom_right',
+  welcome_message: 'Send me a line', // TODO: get these from the database
+  formHtml: '<%= j render "form" %>',
+
+  init: function() {
+    console.log('widget initialized!');
+    this.showIcon();
+  },
+
+  showForm: function() {
+    document.body.insertAdjacentHTML('beforeend', this.formHtml);
+    hideIcon();
+  },
+
+  hideForm: function() {
+    document.getElementById('blog_text_widget').remove();
+    showIcon();
+  },
+
+  hideIcon: function() {
+    document.getElementById('blog_text_icon').remove();
+  },
+
+  showIcon: function() {
+    let icon = document.createElement('span');
+    icon.id = 'blog_text_icon';
+    icon.addEventListener('click', this.showForm.bind(this));
+    Object.assign(icon.style, this.circleStyles);
+
+    document.body.append(icon);
+  }
+}
+
+BlogTextsWidget.init();
