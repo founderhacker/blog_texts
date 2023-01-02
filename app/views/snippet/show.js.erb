@@ -5,6 +5,7 @@ var <%= widgetName %> = {
   position: 'bottom_right',
   welcome_message: 'Send me a line', // TODO: get these from the database
   formHtml: '<%= j render "form" %>',
+  formId: 'new_message',
   cssStyles: '<%= asset_url("tailwind.css") %>',
   thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4">Thanks for your message!</p>',
 
@@ -24,8 +25,27 @@ var <%= widgetName %> = {
   showForm: function() {
     document.body.insertAdjacentHTML('beforeend', this.formHtml);
     document.getElementById('blog_text_widget_hide_form_button').addEventListener('click', this.hideForm.bind(this));
-    document.getElementById('new_message').addEventListener('submit', this.submitForm);
+    document.getElementById(this.formId).addEventListener('submit', this.submitForm);
+    this.enableAutosave();
     this.hideIcon();
+  },
+
+  enableAutosave: function() {
+    ['name', 'email'].forEach(function(formField) {
+      // attach autosave functionality to name, email form fields
+      let fieldEl = document.getElementById('message_' + formField);
+
+      fieldEl.addEventListener('change', function() {
+        localStorage.setItem('<%= widgetName %>' + '_' + formField, fieldEl.value);
+      })
+
+      // retrieve existing autosaved value; if exists, prefill input
+      let savedValue = localStorage.getItem('<%= widgetName %>' + '_' + formField);
+
+      if (savedValue != null) {
+        fieldEl.value = savedValue;
+      }
+    })
   },
 
   hideForm: function() {
@@ -47,7 +67,7 @@ var <%= widgetName %> = {
   },
 
   showThankYou: function() {
-    document.getElementById('new_message').innerHTML = this.thankYouHtml;
+    document.getElementById(this.formId).innerHTML = this.thankYouHtml;
     setTimeout(this.hideForm.bind(this), 2000);
   },
 
