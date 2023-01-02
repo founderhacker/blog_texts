@@ -1,9 +1,12 @@
-var BlogTextsWidget = {
+<% widgetName = 'BlogTextsWidget' %>
+
+var <%= widgetName %> = {
   circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '10px', right: '10px', cursor: 'pointer' },
   position: 'bottom_right',
   welcome_message: 'Send me a line', // TODO: get these from the database
   formHtml: '<%= j render "form" %>',
   cssStyles: '<%= asset_url("tailwind.css") %>',
+  thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4">Thanks for your message!</p>',
 
   init: function() {
     console.log('widget initialized!');
@@ -42,6 +45,11 @@ var BlogTextsWidget = {
     document.body.append(icon);
   },
 
+  showThankYou: function() {
+    document.getElementById('new_message').innerHTML = this.thankYouHtml;
+    setTimeout(this.hideForm.bind(this), 2000);
+  },
+
   submitForm: function(e) {
     e.preventDefault();
     let form = e.target;
@@ -50,9 +58,9 @@ var BlogTextsWidget = {
       method: 'POST',
       body: new FormData(form)
     }).then((response) => {
-      console.log('success response received! you hide the form and show a thank you message now.');
+      <%= widgetName %>.showThankYou();
     })
   }
 }
 
-BlogTextsWidget.init();
+<%= widgetName %>.init();
