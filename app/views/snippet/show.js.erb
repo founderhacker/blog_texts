@@ -20,6 +20,7 @@ var BlogTextsWidget = {
 
   showForm: function() {
     document.body.insertAdjacentHTML('beforeend', this.formHtml);
+    document.getElementById('new_message').addEventListener('submit', this.submitForm);
     this.hideIcon();
   },
 
@@ -39,6 +40,18 @@ var BlogTextsWidget = {
     Object.assign(icon.style, this.circleStyles);
 
     document.body.append(icon);
+  },
+
+  submitForm: function(e) {
+    e.preventDefault();
+    let form = e.target;
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form)
+    }).then((response) => {
+      console.log('success response received! you hide the form and show a thank you message now.');
+    })
   }
 }
 
