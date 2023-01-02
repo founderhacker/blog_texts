@@ -23,6 +23,7 @@ var <%= widgetName %> = {
 
   showForm: function() {
     document.body.insertAdjacentHTML('beforeend', this.formHtml);
+    document.getElementById('blog_text_widget_hide_form_button').addEventListener('click', this.hideForm.bind(this));
     document.getElementById('new_message').addEventListener('submit', this.submitForm);
     this.hideIcon();
   },
