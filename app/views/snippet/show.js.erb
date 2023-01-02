@@ -3,20 +3,29 @@ var BlogTextsWidget = {
   position: 'bottom_right',
   welcome_message: 'Send me a line', // TODO: get these from the database
   formHtml: '<%= j render "form" %>',
+  cssStyles: '<%= asset_url("tailwind.css") %>',
 
   init: function() {
     console.log('widget initialized!');
     this.showIcon();
+    this.plantCss();
+  },
+
+  plantCss: function() {
+    let stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = this.cssStyles;
+    document.head.append(stylesheet);
   },
 
   showForm: function() {
     document.body.insertAdjacentHTML('beforeend', this.formHtml);
-    hideIcon();
+    this.hideIcon();
   },
 
   hideForm: function() {
     document.getElementById('blog_text_widget').remove();
-    showIcon();
+    this.showIcon();
   },
 
   hideIcon: function() {
