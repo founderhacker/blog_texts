@@ -1,5 +1,4 @@
 admin_email: support@blogtexts.com # must be a SenderSignature inside Postmark.com
-admin_phone_number: '5558675309'
 aws_access_key_id: "AK_INSERT_HERE"
 aws_secret_access_key: "INSERT_HERE"
 company_name: Blog Texts
