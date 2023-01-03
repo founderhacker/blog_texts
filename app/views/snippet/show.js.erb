@@ -3,6 +3,7 @@
 var <%= widgetName %> = {
   welcomeMessage: '<%= @widget.welcome_message %>',
   backgroundColor: '<%= @widget.background_color %>',
+  enabled: <%= @widget.enabled %>,
   shape: '<%= @widget.shape %>',
   location: '<%= @widget.location %>',
   formHtml: '<%= j render "form" %>',
@@ -17,8 +18,10 @@ var <%= widgetName %> = {
   thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4">Thanks for your message!</p>',
 
   init: function() {
-    this.showIcon();
-    this.plantCss();
+    if (this.enabled) {
+      this.showIcon();
+      this.plantCss();
+    }
   },
 
   plantCss: function() {

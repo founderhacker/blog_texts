@@ -1,7 +1,10 @@
 class Message < ApplicationRecord
+  FREE_PLAN_LIMIT = 50
+
   belongs_to :widget
 
   scope :newest_to_oldest, -> { order(created_at: :desc) }
+  scope :oldest_to_newest, -> { order(created_at: :asc) }
 
   validates_presence_of :name, :email, :content
 
@@ -10,9 +13,12 @@ class Message < ApplicationRecord
   end
 
   def notify_user
+    return if !user.paying_customer? && user.messages.count >= FREE_PLAN_LIMIT
+
     SmsService.new(self).send_text! if user.phone?
     MessagesMailer.notification(self).deliver
   end
+  handle_asynchronously :notify_user
 
   def self.to_csv(messages)
     CSV.generate do |csv|
