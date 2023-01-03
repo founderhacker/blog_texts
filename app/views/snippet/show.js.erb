@@ -64,7 +64,13 @@ var <%= widgetName %> = {
       widget.style.left = offset;
     }
 
-    // 4. put form in focus
+    // 4. set the avatar
+    <% if @widget.avatar.present? %>
+      let avatarSrc = '<%= Rails.application.routes.url_helpers.url_for(@widget.avatar) %>';
+      document.getElementById('blog_text_widget_avatar').src = avatarSrc;
+    <% end %>
+
+    // 5. put form in focus
     document.getElementById('message_name').focus();
   },
 

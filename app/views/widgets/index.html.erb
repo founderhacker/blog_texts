@@ -34,7 +34,7 @@ function copySnippet(widgetId) {
 
   // Pass it to the copy sequence
   copyTextToClipboard(snippet.value);
-  alert('Snippet was copied!');
+  document.getElementById("widget_" + widgetId + "_copy_confirmation").innerText = 'Copied!';
 }
 
 function copyTextToClipboard(text) {
