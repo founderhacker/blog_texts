@@ -1,38 +1,46 @@
 <div class="px-4 sm:px-6 lg:px-8">
-  <%= render partial: "shared/heading", locals: { title: "Messages (#{@messages.count})", tagline: "Below are recent messages you've received from website vistors."} %>
+  <% if @messages.count.zero? %>
+    <%= render partial: "shared/heading", locals: {
+      title: "You have no messages!",
+      tagline: "Copy your snippet from the dashboard, paste it in any website's HTML, and messages will appear here.<br>
+                To receive a free text whenever visitors fill out your form, add a phone number to #{link_to 'your Account', account_index_path, class: 'underline text-brand-blue' } page.", extra_classes: 'text-center'
+      } %>
+  <% else %>
+    <%= render partial: "shared/heading", locals: { title: "Messages (#{@messages.count})", tagline: "Below are recent messages you've received from website vistors."} %>
 
-  <div class="text-right">
-    <a href="<%= messages_path(format: 'csv') %>" class="underline text-brand-blue">Export CSV ></a>
-  </div>
+    <div class="text-right">
+      <a href="<%= messages_path(format: 'csv') %>" class="underline text-brand-blue">Export CSV ></a>
+    </div>
 
-  <div class="mt-8 flex flex-col">
-    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-300">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Content</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-
-              <% @messages.each do |message| %>
+    <div class="mt-8 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
                 <tr>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.created_at %></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.name %></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.email %></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.content %></td>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Content</th>
                 </tr>
-              <% end %>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
 
-            </tbody>
-          </table>
+                <% @messages.each do |message| %>
+                  <tr>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.created_at %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.name %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.email %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= message.content %></td>
+                  </tr>
+                <% end %>
+
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
