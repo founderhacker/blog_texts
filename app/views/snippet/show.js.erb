@@ -1,16 +1,22 @@
 <% widgetName = 'BlogTextsWidget' %>
 
 var <%= widgetName %> = {
-  circleStyles: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', bottom: '10px', right: '10px', cursor: 'pointer' },
-  position: 'bottom_right',
-  welcome_message: 'Send me a line', // TODO: get these from the database
+  welcomeMessage: '<%= @widget.welcome_message %>',
+  backgroundColor: '<%= @widget.background_color %>',
+  shape: '<%= @widget.shape %>',
+  location: '<%= @widget.location %>',
   formHtml: '<%= j render "form" %>',
   formId: 'new_message',
+  widgetId: 'blog_text_widget',
+  iconStyles: {
+    circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', cursor: 'pointer', bottom: '10px' },
+    square: { backgroundColor: 'black', height: '50px', width: '50px', position: 'absolute', cursor: 'pointer', bottom: '10px' },
+    rectangle: { backgroundColor: 'black', height: '50px', width: '100px', borderRadius: '10%', position: 'absolute', cursor: 'pointer', bottom: '10px' }
+  },
   cssStyles: '<%= asset_url("tailwind.css") %>',
   thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4">Thanks for your message!</p>',
 
   init: function() {
-    console.log('widget initialized!');
     this.showIcon();
     this.plantCss();
   },
@@ -24,10 +30,53 @@ var <%= widgetName %> = {
 
   showForm: function() {
     document.body.insertAdjacentHTML('beforeend', this.formHtml);
+
+    this.customizeForm();
+
     document.getElementById('blog_text_widget_hide_form_button').addEventListener('click', this.hideForm.bind(this));
     document.getElementById(this.formId).addEventListener('submit', this.submitForm);
     this.enableAutosave();
     this.hideIcon();
+  },
+
+  customizeForm: function() {
+    var self = this;
+
+    // 0. attach widget's client ID
+    document.getElementById('client_id').value = '<%= @widget.client_id %>';
+
+    // 1. customize welcome message
+    document.getElementById('blog_text_widget_welcome_message').innerText = self.welcomeMessage;
+
+    // 2. set preferred colors (background, submit button)
+    Array.from(document.getElementsByClassName('blog_text_widget_background_color')).forEach(function(el) {
+      el.style.backgroundColor = self.backgroundColor;
+    });
+
+    // 3. set form location
+    let widget = document.getElementById(self.widgetId);
+    let offset = '20px';
+    if (self.location == 'bottom_right') {
+      widget.style.right = offset;
+    } else if (self.location == 'bottom_left') {
+      widget.style.left = offset;
+    }
+  },
+
+  customizeIcon: function(icon) {
+    // 1. set icon shape
+    Object.assign(icon.style, this.iconStyles[this.shape]);
+
+    // 2. set icon location
+    let offset = '10px';
+    if (this.location == 'bottom_right') {
+      icon.style.right = offset;
+    } else if (this.location == 'bottom_left') {
+      icon.style.left = offset;
+    }
+
+    // 3. plant icon
+    document.body.append(icon);
   },
 
   enableAutosave: function() {
@@ -49,7 +98,7 @@ var <%= widgetName %> = {
   },
 
   hideForm: function() {
-    document.getElementById('blog_text_widget').remove();
+    document.getElementById(this.widgetId).remove();
     this.showIcon();
   },
 
@@ -61,9 +110,8 @@ var <%= widgetName %> = {
     let icon = document.createElement('span');
     icon.id = 'blog_text_icon';
     icon.addEventListener('click', this.showForm.bind(this));
-    Object.assign(icon.style, this.circleStyles);
 
-    document.body.append(icon);
+    this.customizeIcon(icon);
   },
 
   showThankYou: function() {

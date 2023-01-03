@@ -1,12 +1,14 @@
 <div id="blog_text_widget" style="z-index: 9999999999 !important" class="w-72 border border-2 border-black rounded-md absolute bottom-5 right-10">
   <form class="new_message" id="new_message" action="<%= ENV['base_url'] %>/messages" accept-charset="UTF-8" method="post">
-    <div class="pb-7 pt-4 flex items-center gap-x-2 bg-brand-blue">
+    <input type="hidden" name="client_id" id="client_id" value="">
+
+    <div class="pb-7 pt-4 flex items-center gap-x-2 blog_text_widget_background_color">
       <span id="blog_text_widget_hide_form_button" class="absolute top-0 right-2 text-md cursor-pointer">x</span>
       <div class="pl-2">
         <img src="https://via.placeholder.com/60x60" class="rounded-full" alt="">
       </div>
       <div class="">
-        welcome message here
+        <span id="blog_text_widget_welcome_message"></span>
       </div>
     </div>
 
@@ -37,7 +39,7 @@
       </div>
       <div class="pt-5">
         <div class="flex justify-end">
-          <button type="submit" class="w-full inline-flex justify-center rounded-t-md rounded-b-sm border border-transparent bg-brand-blue hover:bg-brand-blue-dark py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Send</button>
+          <button type="submit" class="w-full blog_text_widget_background_color inline-flex justify-center rounded-t-md rounded-b-sm border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Send</button>
         </div>
       </div>
     </div>

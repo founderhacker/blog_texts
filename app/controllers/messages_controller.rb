@@ -11,7 +11,6 @@ class MessagesController < ApplicationController
 
   def set_widget
     @widget = Widget.find_by(client_id: params[:client_id])
-    @widget = Widget.last # TODO: delete this line
   end
 
   def message_params
