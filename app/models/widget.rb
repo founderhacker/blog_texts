@@ -6,5 +6,5 @@ class Widget < ApplicationRecord
 
   has_one_attached :avatar
 
-  validates :name, :welcome_message, :background_color, :shape, :location, presence: true
+  validates :name, :welcome_message, :thank_you_message, :background_color, :text_color, :shape, :location, presence: true
 end

@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  skip_before_action :verify_authenticity_token, only: [:show]
-  before_action :set_widget, only: [:show]
+  skip_before_action :verify_authenticity_token, only: [:create]
+  before_action :set_widget, only: [:create]
 
   def index
     if current_user.paying_customer?

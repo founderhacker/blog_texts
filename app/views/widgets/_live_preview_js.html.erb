@@ -3,6 +3,12 @@
     document.getElementById('blog_text_widget_welcome_message').innerText = el.value;
   }
 
+  function previewTextColor(colorPicker) {
+    Array.from(document.getElementsByClassName('blog_text_widget_background_color')).forEach(function(el) {
+      el.style.color = colorPicker.value;
+    });
+  }
+
   function previewBackgroundColor(colorPicker) {
     Array.from(document.getElementsByClassName('blog_text_widget_background_color')).forEach(function(el) {
       el.style.backgroundColor = colorPicker.value;
@@ -23,6 +29,12 @@
       welcomeMessage.value = 'Drop me a line';
     }
     previewWelcomeMessage(welcomeMessage);
+
+    let thankYouMessage = document.getElementById('widget_thank_you_message');
+
+    if (thankYouMessage.value == '') {
+      thankYouMessage.value = 'Thanks for the message!';
+    }
 
     let backgroundColor = document.getElementById('widget_background_color');
 

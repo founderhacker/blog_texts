@@ -15,7 +15,7 @@ var <%= widgetName %> = {
     rectangle: { textAlign: 'center', backgroundColor: '<%= @widget.background_color %>', height: '50px', width: '100px', borderRadius: '10%', position: 'absolute', cursor: 'pointer', bottom: '10px' }
   },
   cssStyles: '<%= asset_url("tailwind.css") %>',
-  thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4">Thanks for your message!</p>',
+  thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4"><%= @widget.thank_you_message %></p>',
 
   init: function() {
     if (this.enabled) {
