@@ -2,7 +2,7 @@ module Billable
   extend ActiveSupport::Concern
 
   included do
-    # after_create :setup_stripe_customer
+    after_create :setup_stripe_customer
   end
 
   # done after signup, for easy acquisition metrics inside Stripe UI
@@ -16,7 +16,6 @@ module Billable
 
     update(stripe_customer_id: customer.id)
   end
-  # handle_asynchronously :setup_stripe_customer
 
   # done after user adds payment method, for easy CVR metrics inside Stripe UI
   def set_stripe_subscription
@@ -27,4 +26,5 @@ module Billable
     subscription_id = cust.subscriptions.first.id
     update(stripe_subscription_id: subscription_id)
   end
+  handle_asynchronously :set_stripe_subscription
 end
