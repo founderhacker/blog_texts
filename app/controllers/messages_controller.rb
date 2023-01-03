@@ -1,6 +1,10 @@
 class MessagesController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  before_action :set_widget
+  skip_before_action :verify_authenticity_token, only: [:show]
+  before_action :set_widget, only: [:show]
+
+  def index
+    @messages = current_user.messages.newest_to_oldest
+  end
 
   def create
     @widget.messages.create!(message_params)
