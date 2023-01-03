@@ -1,6 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
   layout 'mailer'
-  default from: '"Support Team" <support@speedrail.com>'
+  default from: '"Blog Texts" <code@founderhacker.com>'
 
   # mailer views live in views/mailers
   def self.inherited(subclass)
