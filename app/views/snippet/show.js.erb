@@ -9,9 +9,9 @@ var <%= widgetName %> = {
   formId: 'new_message',
   widgetId: 'blog_text_widget',
   iconStyles: {
-    circle: { backgroundColor: 'black', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', cursor: 'pointer', bottom: '10px' },
-    square: { backgroundColor: 'black', height: '50px', width: '50px', position: 'absolute', cursor: 'pointer', bottom: '10px' },
-    rectangle: { backgroundColor: 'black', height: '50px', width: '100px', borderRadius: '10%', position: 'absolute', cursor: 'pointer', bottom: '10px' }
+    circle: { backgroundColor: '<%= @widget.background_color %>', height: '50px', width: '50px', borderRadius: '50%', position: 'absolute', cursor: 'pointer', bottom: '10px' },
+    square: { backgroundColor: '<%= @widget.background_color %>', height: '50px', width: '50px', position: 'absolute', cursor: 'pointer', bottom: '10px' },
+    rectangle: { textAlign: 'center', backgroundColor: '<%= @widget.background_color %>', height: '50px', width: '100px', borderRadius: '10%', position: 'absolute', cursor: 'pointer', bottom: '10px' }
   },
   cssStyles: '<%= asset_url("tailwind.css") %>',
   thankYouHtml: '<p id="<%= widgetName %>_thank_you" class="py-4 px-4">Thanks for your message!</p>',
@@ -80,7 +80,16 @@ var <%= widgetName %> = {
       icon.style.left = offset;
     }
 
-    // 3. plant icon
+    // 3. add svg and label (rectangle only)
+    let viewBox = '-2 -2 28 28';
+    if (this.shape == 'rectangle') {
+      viewBox = '-28 2 80 80'
+      icon.insertAdjacentHTML('afterbegin', '<span>Ping me</>');
+    }
+
+    icon.insertAdjacentHTML('beforeend', '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="' + viewBox + '" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>');
+
+    // 4. plant icon
     document.body.append(icon);
   },
 
