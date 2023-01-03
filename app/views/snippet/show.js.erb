@@ -56,11 +56,16 @@ var <%= widgetName %> = {
     // 3. set form location
     let widget = document.getElementById(self.widgetId);
     let offset = '20px';
+    widget.style.bottom = offset;
+
     if (self.location == 'bottom_right') {
       widget.style.right = offset;
     } else if (self.location == 'bottom_left') {
       widget.style.left = offset;
     }
+
+    // 4. put form in focus
+    document.getElementById('message_name').focus();
   },
 
   customizeIcon: function(icon) {

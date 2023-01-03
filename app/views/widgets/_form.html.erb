@@ -19,16 +19,16 @@
 
   <div class="my-5">
     <%= form.label :welcome_message %>
-    <%= form.text_field :welcome_message, placeholder: 'Send me a note', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :welcome_message, placeholder: 'Send me a note', onkeyup: 'previewWelcomeMessage(this)', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :background_color %><br>
-    <%= form.color_field :background_color %>
+    <%= form.color_field :background_color, onchange: 'previewBackgroundColor(this)' %>
   </div>
 
   <div class="my-5">
-    <%= form.label :shape %><br>
+    <%= form.label :shape, 'Icon Shape' %><br>
 
     <span onclick="setShape(this)" class="circle mr-2 cursor-pointer <%= maybe_preselect(widget, 'circle') %>" data-shape="circle"></span>
     <span onclick="setShape(this)" class="square mr-2 cursor-pointer <%= maybe_preselect(widget, 'square') %>" data-shape="square"></span>
@@ -53,7 +53,7 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :location %><br>
+    <%= form.label :location, 'Page Corner' %><br>
     <%= form.select :location, [['Bottom Right', 'bottom_right'], ['Bottom Left', 'bottom_left']], {}, class: 'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm' %>
   </div>
 
