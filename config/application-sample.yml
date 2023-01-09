@@ -1,5 +1,7 @@
 admin_email: support@blogtexts.com # must be a SenderSignature inside Postmark.com
 aws_access_key_id: "AK_INSERT_HERE"
+aws_region: "us-east-1"
+aws_s3_bucket: "INSERT_HERE"
 aws_secret_access_key: "INSERT_HERE"
 company_name: Blog Texts
 postmark_api_token: xxxx-yyy-zzzz
